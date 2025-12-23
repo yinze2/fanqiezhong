@@ -12,22 +12,39 @@
     body {
       font-family: 'Inter', sans-serif;
       transition: background-color 0.5s ease;
+      margin: 0;
+      padding: 0;
+    }
+    #root:empty::before {
+      content: 'Loading ZenPomodoro...';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #94a3b8;
+      font-size: 1.125rem;
     }
   </style>
-  <script type="importmap">
-  {
-    "imports": {
-      "react": "https://esm.sh/react@^19.2.3",
-      "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-      "react/": "https://esm.sh/react@^19.2.3/",
-      "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
-    }
-  }
+  <script>
+    // 关键修复：防止 process.env.API_KEY 在浏览器中导致 ReferenceError
+    window.process = { env: { API_KEY: "" } };
   </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.0.0",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "@google/genai": "https://esm.sh/@google/genai@1.34.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
 </head>
 <body class="bg-slate-50 text-slate-900">
   <div id="root"></div>
-  <!-- 核心修复：添加模块化脚本引用 -->
-  <script type="module" src="index.tsx"></script>
+  <!-- 使用相对路径引用 -->
+  <script type="module" src="./index.tsx"></script>
 </body>
 </html>
