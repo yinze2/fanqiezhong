@@ -1,14 +1,10 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
-import { TimerMode } from "../types";
+import { TimerMode } from "../types.ts";
 
-// 导出获取 AI 实例的辅助函数，确保始终能拿到最新的 API_KEY
 const getAI = () => {
-  const apiKey = process.env.API_KEY;
-  if (!apiKey) {
-    console.warn("API_KEY is not defined in process.env");
-  }
-  return new GoogleGenAI({ apiKey: apiKey || "" });
+  const env = (typeof process !== 'undefined' && process.env) || (window as any).process?.env || {};
+  const apiKey = env.API_KEY || "";
+  return new GoogleGenAI({ apiKey });
 };
 
 export const fetchMotivationalQuote = async (mode: TimerMode): Promise<{ text: string; author: string }> => {

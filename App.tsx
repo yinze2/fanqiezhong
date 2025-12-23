@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
-import PomodoroTimer from './components/PomodoroTimer';
-import { TimerMode } from './types';
-import { MODE_BG_LIGHT } from './constants';
+import PomodoroTimer from './components/PomodoroTimer.tsx';
+import { TimerMode } from './types.ts';
+import { MODE_BG_LIGHT } from './constants.ts';
 
 const App: React.FC = () => {
   const [currentMode, setCurrentMode] = useState<TimerMode>(TimerMode.WORK);

@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { TimerMode, Quote } from '../types';
-import { DEFAULT_SETTINGS, MODE_COLORS, MODE_TEXT } from '../constants';
-import { fetchMotivationalQuote } from '../services/geminiService';
+import { TimerMode, Quote } from '../types.ts';
+import { DEFAULT_SETTINGS, MODE_COLORS, MODE_TEXT } from '../constants.ts';
+import { fetchMotivationalQuote } from '../services/geminiService.ts';
 
 interface PomodoroTimerProps {
   mode: TimerMode;
@@ -15,7 +14,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ mode, onModeChange }) => 
   const [quote, setQuote] = useState<Quote | null>(null);
   const [isLoadingQuote, setIsLoadingQuote] = useState(false);
   
-  // Fix: Replacing NodeJS.Timeout with ReturnType<typeof setInterval> for browser environment compatibility
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const getNewQuote = useCallback(async () => {
@@ -47,7 +45,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ mode, onModeChange }) => 
       }, 1000);
     } else if (timeLeft === 0) {
       setIsActive(false);
-      // Play a simple beep notification if needed (using browser notification API or audio)
       if (timerRef.current) clearInterval(timerRef.current);
     }
 
@@ -83,7 +80,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ mode, onModeChange }) => 
       </div>
 
       <div className="relative w-64 h-64 mb-10 group">
-        {/* Progress Ring */}
         <svg className="w-full h-full transform -rotate-90">
           <circle
             cx="128"

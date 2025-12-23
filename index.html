@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,21 +12,32 @@
       font-family: 'Inter', sans-serif;
       transition: background-color 0.5s ease;
       margin: 0;
-      padding: 0;
+      background-color: #f8fafc;
     }
-    #root:empty::before {
-      content: 'Loading ZenPomodoro...';
+    #root:empty {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+    }
+    #root:empty::after {
+      content: 'Loading ZenPomodoro...';
       color: #94a3b8;
       font-size: 1.125rem;
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .5; }
     }
   </style>
   <script>
-    // 关键修复：防止 process.env.API_KEY 在浏览器中导致 ReferenceError
-    window.process = { env: { API_KEY: "" } };
+    // 在最顶层注入 process 对象，确保所有模块都能访问 process.env.API_KEY
+    window.process = { 
+      env: { API_KEY: "" },
+      cwd: () => "/"
+    };
+    var process = window.process;
   </script>
   <script type="importmap">
 {
@@ -42,9 +52,8 @@
 }
 </script>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body>
   <div id="root"></div>
-  <!-- 使用相对路径引用 -->
-  <script type="module" src="./index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
 </body>
 </html>
