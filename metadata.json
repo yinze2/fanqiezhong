@@ -1,0 +1,7 @@
+{
+  "name": "ZenPomodoro AI",
+  "description": "A minimalist and elegant Pomodoro timer integrated with Gemini AI to provide context-aware motivational quotes and productivity tips for each session.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
